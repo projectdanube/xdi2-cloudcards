@@ -3,7 +3,7 @@
 
 XDI Cloud Card viewer [https://cloud-cards.xdi2.org/](https://cloud-cards.xdi2.org/)
 
-This web application displays XDI Cloud Cards, which may include public or private data. In order to access the private data, a connection invitation from an
+This web application displays XDI Cloud Cards, which may include public or private data. In order to access the private data, a "connection invitation" from an
 authorizing authority (AA) to a requesting authority (RA) is issued. This happens via an "XDI Connect" button on the Cloud Card.
 
 To create new cards, you can use the [Cloud Manager](https://github.com/projectdanube/xdi2-manager) project.
