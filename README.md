@@ -1,18 +1,22 @@
 <a href="http://projectdanube.org/" target="_blank"><img src="http://projectdanube.github.com/xdi2/images/projectdanube_logo.png" align="right"></a>
 <img src="http://projectdanube.github.com/xdi2/images/logo64.png"><br>
 
-xdi2-cloudcards
-==============
+XDI Cloud Card viewer [https://cloud-cards.xdi2.org/](https://cloud-cards.xdi2.org/)
 
-xdi2-cloudcards is a demo application which allow you to share Cloud Cards. This cards can include public or private data. In order to have a see the private data, you have to request permission to the cloud owner.
+This web application displays XDI Cloud Cards, which may include public or private data. In order to access the private data, a connection invitation from an
+authorizing authority (AA) to a requesting authority (RA) is issued. This happens via an "XDI Connect" button on the Cloud Card.
 
-To create new cards, you can use the Cloud Card editor included in the [xdi2-manager](https://github.com/projectdanube/xdi2-manager) project.
+To create new cards, you can use the [Cloud Manager](https://github.com/projectdanube/xdi2-manager) project.
 
 Card example: https://cloud-cards.xdi2.org/=andrepm
 
-Website: https://xdi2.org/, sample deployment: https://cloud-cards.xdi2.org/
+### Information
+
+* [Walkthrough](https://github.com/projectdanube/xdi2-cloudcards/wiki/Walkthrough)
+* [Screencast](https://github.com/projectdanube/xdi2-cloudcards/wiki/Screencast)
 
 ### How to build
+
 First, you need to build the main [XDI2](https://github.com/projectdanube/xdi2) project.
 
 After that, just run
