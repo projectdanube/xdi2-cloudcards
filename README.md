@@ -23,7 +23,7 @@ After that, just run
 
     mvn clean install
 
-That will generate xdi2-cloudcards.war. Deploy it in your favorite Java Servlet container.
+This will generate .war file ready for deployment.
 
 ### Community
 
