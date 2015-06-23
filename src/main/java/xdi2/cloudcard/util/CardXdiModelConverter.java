@@ -11,7 +11,7 @@ import xdi2.cloudcard.model.Card;
 import xdi2.cloudcard.model.CardField;
 import xdi2.cloudcard.model.CardFieldPrivacy;
 import xdi2.core.ContextNode;
-import xdi2.core.Literal;
+import xdi2.core.LiteralNode;
 import xdi2.core.Relation;
 import xdi2.core.syntax.XDIAddress;
 import xdi2.core.util.XDIAddressUtil;
@@ -42,20 +42,20 @@ public class CardXdiModelConverter {
 		// get general card info
 		card.setXdiAddress(cardXdiAddress.toString());
 
-		Literal l = cardPublicContextNode.getGraph().getRootContextNode().getDeepLiteral(XDIAddressUtil.concatXDIAddresses(cardXdiAddress, XDI_CARD_DESCRIPTION));
+		LiteralNode l = cardPublicContextNode.getGraph().getRootContextNode().getDeepLiteralNode(XDIAddressUtil.concatXDIAddresses(cardXdiAddress, XDI_CARD_DESCRIPTION));
 		if (l != null) {
 			card.setDescription(l.getLiteralDataString());
 		}
-		l = cardPublicContextNode.getGraph().getRootContextNode().getDeepLiteral(XDIAddressUtil.concatXDIAddresses(cardXdiAddress, XDI_CARD_TAG));
+		l = cardPublicContextNode.getGraph().getRootContextNode().getDeepLiteralNode(XDIAddressUtil.concatXDIAddresses(cardXdiAddress, XDI_CARD_TAG));
 		if (l != null) {
 			card.setTag(l.getLiteralDataString());
 		}
-		l = cardPublicContextNode.getGraph().getRootContextNode().getDeepLiteral(XDIAddressUtil.concatXDIAddresses(cardXdiAddress, XDI_CARD_CONNECT_BUTTON));
+		l = cardPublicContextNode.getGraph().getRootContextNode().getDeepLiteralNode(XDIAddressUtil.concatXDIAddresses(cardXdiAddress, XDI_CARD_CONNECT_BUTTON));
 		if (l != null) {
 			String encodedButtonMessage = l.getLiteralDataString();
 			card.setMessageConnectButton(StringUtils.newStringUtf8(Base64.decodeBase64(encodedButtonMessage)));
 		}
-		l = cardPublicContextNode.getGraph().getRootContextNode().getDeepLiteral(XDIAddressUtil.concatXDIAddresses(cardXdiAddress, XDI_CARD_BACKGROUND_IMAGE));
+		l = cardPublicContextNode.getGraph().getRootContextNode().getDeepLiteralNode(XDIAddressUtil.concatXDIAddresses(cardXdiAddress, XDI_CARD_BACKGROUND_IMAGE));
 		if (l != null) {
 			card.setBackgroundImage(l.getLiteralDataString());
 		}
@@ -103,7 +103,7 @@ public class CardXdiModelConverter {
 			}
 		}
 
-		Literal l = fieldContextNode.getLiteral();
+		LiteralNode l = fieldContextNode.getLiteralNode();
 		if (l != null) {
 			field.setValue(l.getLiteralDataString());
 			field.setXdiStatement(l.getStatement().toString());

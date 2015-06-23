@@ -81,7 +81,7 @@ public class CardService {
 		ReadOnlyIterator<Relation> relations = cardGraph.getDeepRelations(XDIAddress.create(getCloudIdentifier(id)), XDIAddress.create("$is$ref"));
 		while (relations.hasNext()) {
 			Relation r = relations.next();
-			card.setCloudName(r.getTargetContextNodeXDIAddress().toString());
+			card.setCloudName(r.getTargetXDIAddress().toString());
 		}
 		
 		return card;
@@ -130,7 +130,7 @@ public class CardService {
 		ReadOnlyIterator<Relation> relations = mr.getGraph().getDeepRelations(cloudNumber.getXDIAddress(), XDIAddress.create("$is$ref"));
 		while (relations.hasNext()) {
 			Relation r = relations.next();
-			card.setCloudName(r.getTargetContextNodeXDIAddress().toString());
+			card.setCloudName(r.getTargetXDIAddress().toString());
 		}
 		
 		return card;
