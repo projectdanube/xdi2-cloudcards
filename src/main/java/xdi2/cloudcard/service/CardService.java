@@ -94,7 +94,7 @@ public class CardService {
 		// Discover Cloud Endpoint
 		XDI2X509TrustManager.enable();
 		
-		XDIDiscoveryClient xdiDiscoveryClient = "OTE".equals(env) ? XDIDiscoveryClient.NEUSTAR_OTE_DISCOVERY_CLIENT : XDIDiscoveryClient.NEUSTAR_PROD_DISCOVERY_CLIENT;
+		XDIDiscoveryClient xdiDiscoveryClient = "OTE".equals(env) ? XDIDiscoveryClient.XDI2_NEUSTAR_OTE_DISCOVERY_CLIENT : XDIDiscoveryClient.XDI2_NEUSTAR_PROD_DISCOVERY_CLIENT;
         XDIDiscoveryResult result = xdiDiscoveryClient.discoverFromRegistry(cloudIdentifier, null);
 
         if (result.getCloudNumber() == null) {
