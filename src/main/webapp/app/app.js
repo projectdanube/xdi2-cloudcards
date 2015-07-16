@@ -49,11 +49,9 @@ controllers.controller("ViewCardCtrl", ['$scope',
 controllers.controller("SearchCardCtrl", ['$scope', '$window',
   function ($scope, $window) {
 
-        $scope.env = 'PROD';
-
         $scope.searchCard = function () {
 
-            var url = $scope.env + '/' + encodeURIComponent($scope.cloudCard);
+            var url = encodeURIComponent($scope.cloudCard);
 
             $window.location.href = url;
 

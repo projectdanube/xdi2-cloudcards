@@ -46,7 +46,7 @@ public class CardService {
 	private CardXdiModelConverter cardXdiModelConverter;
 
 
-	public Card getCard(String env, String id) throws Xdi2ClientException {
+	public Card getCard(String id) throws Xdi2ClientException {
 		
 		log.debug("Trying to get card in address: " + id);
 		
@@ -57,13 +57,13 @@ public class CardService {
 		
 		id += "$public";
 		
-		Card card = getCardFromPublicLC(env, id);
+		Card card = getCardFromPublicLC(id);
 
 		return card;
 	}
 	
 
-	public Card getCard(String env, String id, String privateCardXdi) throws Xdi2ParseException, IOException {
+	public Card getCard(String id, String privateCardXdi) throws Xdi2ParseException, IOException {
 
 		Graph cardGraph = MemoryGraphFactory.getInstance().openGraph();
 		XDIReader xdiReader = XDIReaderRegistry.getAuto();
@@ -87,14 +87,14 @@ public class CardService {
 		return card;
 	}
 	
-	private Card getCardFromPublicLC(String env, String cardXdiAddress) throws Xdi2DiscoveryException, Xdi2ClientException {
+	private Card getCardFromPublicLC(String cardXdiAddress) throws Xdi2DiscoveryException, Xdi2ClientException {
 
 		XDIAddress cloudIdentifier = XDIAddress.create(getCloudIdentifier(cardXdiAddress));
 		
 		// Discover Cloud Endpoint
 		XDI2X509TrustManager.enable();
 		
-		XDIDiscoveryClient xdiDiscoveryClient = "OTE".equals(env) ? XDIDiscoveryClient.XDI2_NEUSTAR_OTE_DISCOVERY_CLIENT : XDIDiscoveryClient.XDI2_NEUSTAR_PROD_DISCOVERY_CLIENT;
+		XDIDiscoveryClient xdiDiscoveryClient = XDIDiscoveryClient.XDI2_DISCOVERY_CLIENT;
         XDIDiscoveryResult result = xdiDiscoveryClient.discoverFromRegistry(cloudIdentifier);
 
         if (result.getCloudNumber() == null) {

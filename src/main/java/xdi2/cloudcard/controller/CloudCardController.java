@@ -43,13 +43,8 @@ public class CloudCardController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public String getCard(@PathVariable String id, Model model) throws Xdi2ClientException, JsonProcessingException {
-		return getCard("PROD", id, model);
-	}
-	
-	@RequestMapping(value = "/{env}/{id}", method = RequestMethod.GET)
 	public String getCard(@PathVariable String env, @PathVariable String id, Model model) throws Xdi2ClientException, JsonProcessingException {
-		Card card = cardService.getCard(env.toUpperCase(), id);
+		Card card = cardService.getCard(id);
 
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonCard = mapper.writeValueAsString(card);
@@ -58,18 +53,9 @@ public class CloudCardController {
 
 		return "index";
 	}
-
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public String getPrivateCard(
-			@PathVariable String id,
-			@RequestParam("xdiMessagingResponse") String xdiMessagingResponse,
-			Model model) throws Xdi2ParseException, IOException, Xdi2ClientException {
-		return getPrivateCard("PROD", id, xdiMessagingResponse, model);
-	}
-	
-	@RequestMapping(value = "/{env}/{id}", method = RequestMethod.POST)
-	public String getPrivateCard(
-			@PathVariable String env,
 			@PathVariable String id,
 			@RequestParam("xdiMessagingResponse") String xdiMessagingResponse,
 			Model model) throws Xdi2ParseException, IOException, Xdi2ClientException {
@@ -80,7 +66,7 @@ public class CloudCardController {
 			return "index";
 		}
 
-		Card card = cardService.getCard(env, id, xdiMessagingResponse);
+		Card card = cardService.getCard(id, xdiMessagingResponse);
 
 		if (card == null) {
 			model.addAttribute("errorMsg", "Something went wrong while connecting with the card.");

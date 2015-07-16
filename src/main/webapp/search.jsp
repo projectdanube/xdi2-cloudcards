@@ -50,22 +50,6 @@
 	                                </div>
                                 </div>
                                 
-                                <div class="row">
-                            		<div class="col-md-4 col-md-offset-4">
-                            
-		                                <div class="radio">
-		                                    <label>
-		                                        <input type="radio" ng-model="env" id="envProd" value="PROD" checked>PROD
-		                                    </label>
-		                                </div>
-		                                <div class="radio">
-		                                    <label>
-		                                        <input type="radio" ng-model="env" id="envOte" value="OTE">OTE
-		                                    </label>
-		                                </div>
-	                                
-	                                </div>
-                                </div>
                                 <br />
                                 
                                 <div class="col-md-3 col-md-offset-9">
