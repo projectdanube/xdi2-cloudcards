@@ -62,25 +62,25 @@ public class CloudCardController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public String getPrivateCard(
 			@PathVariable String id,
-			@RequestParam("xdiMessageResult") String xdiMessageResult,
+			@RequestParam("xdiMessagingResponse") String xdiMessagingResponse,
 			Model model) throws Xdi2ParseException, IOException, Xdi2ClientException {
-		return getPrivateCard("PROD", id, xdiMessageResult, model);
+		return getPrivateCard("PROD", id, xdiMessagingResponse, model);
 	}
 	
 	@RequestMapping(value = "/{env}/{id}", method = RequestMethod.POST)
 	public String getPrivateCard(
 			@PathVariable String env,
 			@PathVariable String id,
-			@RequestParam("xdiMessageResult") String xdiMessageResult,
+			@RequestParam("xdiMessagingResponse") String xdiMessagingResponse,
 			Model model) throws Xdi2ParseException, IOException, Xdi2ClientException {
 
 
-		if (xdiMessageResult.contains("<$false>")) {
+		if (xdiMessagingResponse.contains("<$false>")) {
 			model.addAttribute("errorMsg", "Something went wrong while connecting with the card.");
 			return "index";
 		}
 
-		Card card = cardService.getCard(env, id, xdiMessageResult);
+		Card card = cardService.getCard(env, id, xdiMessagingResponse);
 
 		if (card == null) {
 			model.addAttribute("errorMsg", "Something went wrong while connecting with the card.");

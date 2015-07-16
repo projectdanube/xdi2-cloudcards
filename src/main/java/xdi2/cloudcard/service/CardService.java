@@ -2,7 +2,7 @@ package xdi2.cloudcard.service;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.net.URL;
+import java.net.URI;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import xdi2.client.XDIClient;
 import xdi2.client.exceptions.Xdi2ClientException;
 import xdi2.client.exceptions.Xdi2DiscoveryException;
-import xdi2.client.http.XDIHttpClient;
-import xdi2.client.http.ssl.XDI2X509TrustManager;
+import xdi2.client.impl.http.XDIHttpClient;
+import xdi2.client.impl.http.ssl.XDI2X509TrustManager;
 import xdi2.cloudcard.model.Card;
 import xdi2.cloudcard.util.CardXdiModelConverter;
 import xdi2.core.ContextNode;
@@ -31,10 +31,10 @@ import xdi2.core.util.XDIStatementUtil;
 import xdi2.core.util.iterators.ReadOnlyIterator;
 import xdi2.discovery.XDIDiscoveryClient;
 import xdi2.discovery.XDIDiscoveryResult;
-import xdi2.messaging.GetOperation;
 import xdi2.messaging.Message;
 import xdi2.messaging.MessageEnvelope;
-import xdi2.messaging.MessageResult;
+import xdi2.messaging.operations.GetOperation;
+import xdi2.messaging.response.MessagingResponse;
 
 @Service
 public class CardService {
@@ -95,13 +95,13 @@ public class CardService {
 		XDI2X509TrustManager.enable();
 		
 		XDIDiscoveryClient xdiDiscoveryClient = "OTE".equals(env) ? XDIDiscoveryClient.XDI2_NEUSTAR_OTE_DISCOVERY_CLIENT : XDIDiscoveryClient.XDI2_NEUSTAR_PROD_DISCOVERY_CLIENT;
-        XDIDiscoveryResult result = xdiDiscoveryClient.discoverFromRegistry(cloudIdentifier, null);
+        XDIDiscoveryResult result = xdiDiscoveryClient.discoverFromRegistry(cloudIdentifier);
 
         if (result.getCloudNumber() == null) {
     		throw new RuntimeException("It was not possible to discover " + cloudIdentifier);
         }
         
-        URL xdiEndpoint = result.getXdiEndpointUrl();
+        URI xdiEndpoint = result.getXdiEndpointUri();
         CloudNumber cloudNumber = result.getCloudNumber();
         
         // Query cloud for cloud names
@@ -116,9 +116,9 @@ public class CardService {
 		
 		m.createGetOperation(XDIStatementUtil.concatXDIStatement(cloudNumber.getXDIAddress(), XDIStatement.create("/$is$ref/{}")));
 
-		MessageResult mr = client.send(me, null);
+		MessagingResponse mr = client.send(me);
 		
-		ContextNode cardContextNode = mr.getGraph().getRootContextNode().getDeepContextNode(XDIAddress.create(cardXdiAddress));
+		ContextNode cardContextNode = mr.getResultGraph().getRootContextNode().getDeepContextNode(XDIAddress.create(cardXdiAddress));
 		if (cardContextNode == null) {
 			throw new RuntimeException("Card not found.");
 		}
@@ -127,7 +127,7 @@ public class CardService {
 		
 		
 		// Discover CloudName
-		ReadOnlyIterator<Relation> relations = mr.getGraph().getDeepRelations(cloudNumber.getXDIAddress(), XDIAddress.create("$is$ref"));
+		ReadOnlyIterator<Relation> relations = mr.getResultGraph().getDeepRelations(cloudNumber.getXDIAddress(), XDIAddress.create("$is$ref"));
 		while (relations.hasNext()) {
 			Relation r = relations.next();
 			card.setCloudName(r.getTargetXDIAddress().toString());
