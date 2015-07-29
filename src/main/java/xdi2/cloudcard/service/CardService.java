@@ -109,7 +109,7 @@ public class CardService {
 		MessageEnvelope me = new MessageEnvelope();
 		Message m = me.createMessage(XDIAddress.create("$anon"));
 		m.setToPeerRootXDIArc(cloudNumber.getPeerRootXDIArc());
-		m.setLinkContract(PublicLinkContract.class);
+		m.setLinkContractClass(PublicLinkContract.class);
 		
 		GetOperation operation = m.createGetOperation(XDIAddress.create(cardXdiAddress));
 		operation.setParameter(GetOperation.XDI_ADD_PARAMETER_DEREF, Boolean.TRUE);
