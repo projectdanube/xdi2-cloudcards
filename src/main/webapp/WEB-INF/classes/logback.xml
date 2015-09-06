@@ -14,7 +14,7 @@
 	</appender>
 
 	<appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>${destination}cloudcard.log</File>
+		<File>${destination}xdi2-cloud-cards.log</File>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
 			<FileNamePattern>${destination}cloudcard.%d{yyyy-MM-dd}.log</FileNamePattern>
