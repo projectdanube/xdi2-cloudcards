@@ -204,7 +204,7 @@
                             <div class="pull-right">
                                 <!-- Connect Button -->
                                 <form style="display:inline" action="https://connect-service.projectdanube.org/connect" id="xdiConnect" method="POST">
-                                    <input type="hidden" name="xdiMessageEnvelope" value="{{ card.messageConnectButton }}" />
+                                    <input type="hidden" name="xdi" value="{{ card.messageConnectButton }}" />
                                     
                                     <!--  a href onclick="$('#xdiConnect').submit();"><img src="assets/images/logo-connect.png" /></a -->
                                     <a href onclick="$('#xdiConnect').submit();" class="btn btn-primary btn-lg" role="button">

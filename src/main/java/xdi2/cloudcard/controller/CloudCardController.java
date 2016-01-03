@@ -57,16 +57,16 @@ public class CloudCardController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public String getPrivateCard(
 			@PathVariable String id,
-			@RequestParam("xdiMessagingResponse") String xdiMessagingResponse,
+			@RequestParam("xdi") String xdi,
 			Model model) throws Xdi2ParseException, IOException, Xdi2ClientException {
 
 
-		if (xdiMessagingResponse.contains("<$false>")) {
+		if (xdi.contains("<$false>")) {
 			model.addAttribute("errorMsg", "Something went wrong while connecting with the card.");
 			return "index";
 		}
 
-		Card card = cardService.getCard(id, xdiMessagingResponse);
+		Card card = cardService.getCard(id, xdi);
 
 		if (card == null) {
 			model.addAttribute("errorMsg", "Something went wrong while connecting with the card.");
